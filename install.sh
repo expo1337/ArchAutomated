@@ -153,6 +153,7 @@ case $displayMan in
 	
 	*)
 	  echo -n "No Display Manager installed"
+esac
 #Gen fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 clear
@@ -186,6 +187,7 @@ arch-chroot /mnt << EOF
 	
 	*)
 	  echo -n "No Display Manager installed"
+	esac
 	grub-install /dev/$driveName
 	grub-mkconfig -o /boot/grub/grub.cfg
 	echo "LANG=en_US.UTF-8" >> /etc/locale.conf
