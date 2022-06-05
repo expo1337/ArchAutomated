@@ -13,6 +13,9 @@ echo "Select a drive to install on: "
 lsblk
 read driveName
 clear
+echo "Please enter a hostname for the computer: "
+read hostname
+clear
 echo "Please insert a password for the root user: "
 read rootPass
 clear
@@ -41,7 +44,6 @@ echo "2) KDE Plasma"
 echo "3) Xfce4"
 echo "4) Cutefish"
 echo "5) Budgie"
-echo "6) I3-wm"
 echo "0) No environment (CLI ONLY!)"
 read desktopEnv
 
@@ -101,6 +103,56 @@ swapon /dev/$driveName$swap
 #Base package install
 pacstrap /mnt base linux linux-firmware sof-firmware neofetch vim nano neofetch base-devel networkmanager grub efibootmgr
 
+#Get desktop env
+case $desktopEnv in
+
+  1)
+    echo -n "Gnome"
+    pacstrap /mnt xorg gnome gnome-extra --noconfirm
+    ;;
+
+  2)
+    echo -n "KDE Plasma"
+    pacstrap /mnt xorg plasma kde-applications plasma-wayland-session
+    ;;
+
+  3)
+    echo -n "Xfce"
+    pacstrap /mnt xorg xfce4 xfce4-goodies
+    ;;
+  
+  4)
+    echo -n "Cutefish"
+    pacstrap /mnt xorg cutefish
+    ;;
+  
+  5)
+    echo -n "Budgie"
+    pacstrap /mnt budgie-desktop
+    ;;
+  *)
+    echo -n "No DE installed"
+    ;;
+esac
+case $displayMan in
+
+	1)
+	  echo -n "GDM"
+	  pacstrap /mnt gdm
+	  ;;
+	
+	2)
+	  echo -n "LightDM"
+	  pacstrap /mnt lightdm-gtk-greeter lightdm
+	  ;;
+
+	3)
+	  echo -n "SDDM"
+	  pacstrap /mnt sddm
+	  ;;
+	
+	*)
+	  echo -n "No Display Manager installed"
 #Gen fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 clear
@@ -113,5 +165,35 @@ cp chroot.sh /mnt/chroot.sh
 echo "Please execute the second file with"
 echo "chmod +x chroot.sh"
 echo "./chroot.sh"
-arch-chroot /mnt
+arch-chroot /mnt << EOF
+	ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
+	hwclock --systohc
+	systemctl enable NetworkManager
+	case $displayMan in
+
+	1)
+	  systemctl enable gdm
+	  ;;
+	
+	2)
+	  systemctl enable lightdm
+	  ;;
+
+	3)
+	  echo -n "SDDM"
+	  systemctl enable sddm
+	  ;;
+	
+	*)
+	  echo -n "No Display Manager installed"
+	grub-install /dev/$driveName
+	grub-mkconfig -o /boot/grub/grub.cfg
+	echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+	echo $hostname >> /etc/hostname
+	sh -c 'echo root:'$rootPass' | chpasswd'
+	clear
+	echo "Installation finished"
+	echo "Root user only, create a new user after rebooting for normal usage!"
+	neofetch
+EOF
 # current variables ===== rootPass driveName efiSize swapSize rootSize size hostname displayMan desktopEnv efi swap root
