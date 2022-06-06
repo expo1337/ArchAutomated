@@ -5,6 +5,7 @@ swap=2
 root=3
 size='M'
 # get user vars
+echo "----------------------------------------"
 echo "Welcome to the Arch automated installer!"
 echo "----------------------------------------"
 sleep 3
@@ -28,8 +29,6 @@ echo "-------------------------------------------------"
 # echo "Input the size of the ROOT partition in mb"
 # read rootSize
 # clear
-echo "Enter a hostname for your computer: "
-read hostname
 clear
 echo "Please pick a display manager: "
 echo "1) GDM"
@@ -101,7 +100,7 @@ mount /dev/$driveName$efi /mnt/boot/efi
 swapon /dev/$driveName$swap
 
 #Base package install
-pacstrap /mnt base linux linux-firmware sof-firmware neofetch vim nano neofetch base-devel networkmanager grub efibootmgr
+pacstrap /mnt base linux linux-firmware sof-firmware neofetch vim nano neofetch base-devel networkmanager grub efibootmgr git
 
 #Get desktop env
 case $desktopEnv in
@@ -190,6 +189,8 @@ arch-chroot /mnt << EOF
 	esac
 	grub-install /dev/$driveName
 	grub-mkconfig -o /boot/grub/grub.cfg
+	mkdir /boot/efi/EFI/BOOT
+	cp /boot/efi/EFI/arch/grubx64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI"
 	echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 	echo $hostname >> /etc/hostname
 	sh -c 'echo root:'$rootPass' | chpasswd'
