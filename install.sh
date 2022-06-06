@@ -127,7 +127,7 @@ case $desktopEnv in
   
   5)
     echo -n "Budgie"
-    pacstrap /mnt budgie-desktop
+    pacstrap /mnt xorg budgie-desktop
     ;;
   *)
     echo -n "No DE installed"
@@ -155,8 +155,24 @@ case $displayMan in
 esac
 #Gen fstab
 genfstab -U /mnt >> /mnt/etc/fstab
-clear
 
+clear
+case $displayMan in
+
+	1)
+	  dpMan='gdm'
+	  ;;
+	
+	2)
+	  dpMan='lightdm'
+	  ;;
+
+	3)
+	  dpMan='sddm'
+	  ;;
+	*)
+	  echo -n "No Display Manager installed"
+	esac
 #Begin chroot installation
 
 cp chroot.sh /mnt/chroot.sh
@@ -167,26 +183,12 @@ echo "chmod +x chroot.sh"
 echo "./chroot.sh"
 arch-chroot /mnt << EOF
 	ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
+	echo 'LANG=en_US.UTF-8' >> /etc/locale.conf
+	echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+	locale-gen
 	hwclock --systohc
 	systemctl enable NetworkManager
-	case $displayMan in
-
-	1)
-	  systemctl enable gdm
-	  ;;
-	
-	2)
-	  systemctl enable lightdm
-	  ;;
-
-	3)
-	  echo -n "SDDM"
-	  systemctl enable sddm
-	  ;;
-	
-	*)
-	  echo -n "No Display Manager installed"
-	esac
+	systemctl enable $dpMan
 	grub-install /dev/$driveName
 	grub-mkconfig -o /boot/grub/grub.cfg
 	mkdir /boot/efi/EFI/BOOT
