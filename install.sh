@@ -107,27 +107,36 @@ case $desktopEnv in
 
   1)
     echo -n "Gnome"
-    pacstrap /mnt xorg gnome gnome-extra --noconfirm
-    ;;
+    installDE="gnome.sh"
+    cp desktopInstall/gnome.sh /mnt
+	;;
 
   2)
     echo -n "KDE Plasma"
-    pacstrap /mnt xorg plasma kde-applications plasma-wayland-session
+	installDE="kde.sh"
+    cp desktopInstall/kde.sh /mnt
+	#pacstrap /mnt xorg plasma kde-applications plasma-wayland-session
     ;;
 
   3)
     echo -n "Xfce"
-    pacstrap /mnt xorg xfce4 xfce4-goodies
+	installDE="xfce4.sh"
+    cp desktopInstall/xfce4.sh /mnt
+	#pacstrap /mnt xorg xfce4 xfce4-goodies
     ;;
   
   4)
     echo -n "Cutefish"
-    pacstrap /mnt xorg cutefish
+	installDE="cutefish.sh"
+    cp desktopInstall/cutefish.sh /mnt
+	#pacstrap /mnt xorg cutefish
     ;;
   
   5)
     echo -n "Budgie"
-    pacstrap /mnt xorg budgie-desktop
+	installDE="budgie.sh"
+	cp desktopInstall/budgie.sh /mnt
+    #pacstrap /mnt xorg budgie-desktop
     ;;
   *)
     echo -n "No DE installed"
@@ -178,10 +187,12 @@ case $displayMan in
 cp chroot.sh /mnt/chroot.sh
 #rm /mnt/etc/locale.gen
 #cp src/locale.gen /mnt/etc/locale.gen
-echo "Please execute the second file with"
-echo "chmod +x chroot.sh"
-echo "./chroot.sh"
+#echo "Please execute the second file with"
+#echo "chmod +x chroot.sh"
+#echo "./chroot.sh"
 arch-chroot /mnt << EOF
+	chmod +x $installDE
+	./$installDE
 	ln -sf /usr/share/zoneinfo/Europe/Bratislava /etc/localtime
 	echo 'LANG=en_US.UTF-8' >> /etc/locale.conf
 	echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
@@ -192,7 +203,7 @@ arch-chroot /mnt << EOF
 	grub-install /dev/$driveName
 	grub-mkconfig -o /boot/grub/grub.cfg
 	mkdir /boot/efi/EFI/BOOT
-	cp /boot/efi/EFI/arch/grubx64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI"
+	cp /boot/efi/EFI/arch/grubx64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI
 	echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 	echo $hostname >> /etc/hostname
 	sh -c 'echo root:'$rootPass' | chpasswd'

@@ -1,0 +1,1 @@
+pacman -S xorg xfce4 xfce4-goodies --noconfirm

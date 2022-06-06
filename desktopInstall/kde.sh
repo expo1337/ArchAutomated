@@ -1,0 +1,1 @@
+pacman -S xorg plasma kde-applications plasma-wayland-session --noconfirm

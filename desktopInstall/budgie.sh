@@ -1,0 +1,1 @@
+pacman -S xorg budgie-desktop --noconfirm
