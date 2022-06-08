@@ -167,12 +167,11 @@ case $displayMan in
 esac
 
 # Copy utils
-if [ "$drivers" == "y" ]
-then
+if [ "$drivers" == "y" ]; then
 	cp /desktopInstall/nvidia.sh /mnt/nvidia.sh
 else 
 	echo "Using Open Source drivers"
- fi
+fi
 echo "Internet Connection Detected!"
 #Gen fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -219,12 +218,9 @@ arch-chroot /mnt << EOF
 	echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 	echo $hostname >> /etc/hostname
 	sh -c 'echo root:'$rootPass' | chpasswd'
+	chmod +x nvidia.sh
+	./nvidia.sh
 	clear
-	`if [$driver == 'y']; then
-		echo "pacman -S nvidia nvidia-utils --noconfirm"
-	else
-		echo "Using open source drivers"
-	fi`
 	echo "Installation finished"
 	echo "Root user only, create a new user after rebooting for normal usage!"
 	neofetch
