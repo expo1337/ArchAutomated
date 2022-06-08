@@ -45,6 +45,9 @@ echo "4) Cutefish"
 echo "5) Budgie"
 echo "0) No environment (CLI ONLY!)"
 read desktopEnv
+clear
+echo "Use proprietary drivers? (NVIDIA ONLY) y/n"
+read drivers
 
 ls /sys/firmware/efi/efivars || { echo "You are not installing on EFI compatible hardware!" ; exit 1; }
 clear
@@ -162,6 +165,15 @@ case $displayMan in
 	*)
 	  echo -n "No Display Manager installed"
 esac
+
+# Copy utils
+if [ "$drivers" == "y" ]
+then
+	cp /desktopInstall/nvidia.sh /mnt/nvidia.sh
+else 
+	echo "Using Open Source drivers"
+ fi
+echo "Internet Connection Detected!"
 #Gen fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
@@ -208,6 +220,11 @@ arch-chroot /mnt << EOF
 	echo $hostname >> /etc/hostname
 	sh -c 'echo root:'$rootPass' | chpasswd'
 	clear
+	`if [$driver == 'y']; then
+		echo "pacman -S nvidia nvidia-utils --noconfirm"
+	else
+		echo "Using open source drivers"
+	fi`
 	echo "Installation finished"
 	echo "Root user only, create a new user after rebooting for normal usage!"
 	neofetch
