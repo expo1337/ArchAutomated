@@ -168,7 +168,7 @@ esac
 
 # Copy utils
 if [ "$drivers" == "y" ]; then
-	cp /desktopInstall/nvidia.sh /mnt/nvidia.sh
+	cp desktopInstall/nvidia.sh /mnt/nvidia.sh
 else 
 	echo "Using Open Source drivers"
 fi
