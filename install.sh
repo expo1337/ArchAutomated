@@ -242,6 +242,7 @@ arch-chroot /mnt << EOF
 	sh -c 'echo root:'$rootPass' | chpasswd'
 	chmod +x nvidia.sh
 	./nvidia.sh
+	rm nvidia.sh
 	clear
 	neofetch
 EOF
