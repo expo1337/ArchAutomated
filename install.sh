@@ -26,9 +26,6 @@ echo "-------------------------------------------------"
 echo "Input the size of the SWAP partition in mb"
 read swapSize
 echo "-------------------------------------------------"
-# echo "Input the size of the ROOT partition in mb"
-# read rootSize
-# clear
 clear
 echo "Please pick a display manager: "
 echo "1) GDM"
@@ -57,9 +54,11 @@ read username
 clear
 echo "Please enter a password for the new user: "
 read password
+# Check for EFI Variables - determine the system efi support
 ls /sys/firmware/efi/efivars || { echo "You are not installing on EFI compatible hardware!" ; exit 1; }
 clear
 echo "Installing on EFI compatible hardware"
+# Test internet connection
 nc -z 1.1.1.1 53
 net="$?"
 if [ "$net" != "0" ]
@@ -68,6 +67,7 @@ then
 	exit 1
  fi
 echo "Internet Connection Detected!"
+#Sync time
 timedatectl set-ntp true
 
 #Fdisk Autopart
@@ -126,28 +126,24 @@ case $desktopEnv in
     echo -n "KDE Plasma"
 	installDE="kde.sh"
     cp desktopInstall/kde.sh /mnt
-	#pacstrap /mnt xorg plasma kde-applications plasma-wayland-session
     ;;
 
   3)
     echo -n "Xfce"
 	installDE="xfce4.sh"
     cp desktopInstall/xfce4.sh /mnt
-	#pacstrap /mnt xorg xfce4 xfce4-goodies
     ;;
   
   4)
     echo -n "Cutefish"
 	installDE="cutefish.sh"
     cp desktopInstall/cutefish.sh /mnt
-	#pacstrap /mnt xorg cutefish
     ;;
   
   5)
     echo -n "Budgie"
 	installDE="budgie.sh"
 	cp desktopInstall/budgie.sh /mnt
-    #pacstrap /mnt xorg budgie-desktop
     ;;
   6)
     echo -n "i3-wm"
@@ -168,21 +164,25 @@ case $desktopEnv in
     echo -n "No DE installed"
     ;;
 esac
+# Get Display manager
 case $displayMan in
 
 	1)
 	  echo -n "GDM"
 	  pacstrap /mnt gdm
+	  dpMan='gdm'
 	  ;;
 	
 	2)
 	  echo -n "LightDM"
 	  pacstrap /mnt lightdm-gtk-greeter lightdm
+	  dpMan='lightdm'
 	  ;;
 
 	3)
 	  echo -n "SDDM"
 	  pacstrap /mnt sddm
+	  dpMan='sddm'
 	  ;;
 	*)
 	  echo -n "No Display Manager installed"
@@ -192,37 +192,13 @@ esac
 if [ "$drivers" == "y" ]; then
 	cp desktopInstall/nvidia.sh /mnt/nvidia.sh
 else 
-	echo "Using Open Source drivers"
+	echo "Using Open Source drivers!"
 fi
-echo "Internet Connection Detected!"
 #Gen fstab
 genfstab -U /mnt >> /mnt/etc/fstab
-
 clear
-case $displayMan in
 
-	1)
-	  dpMan='gdm'
-	  ;;
-	
-	2)
-	  dpMan='lightdm'
-	  ;;
-
-	3)
-	  dpMan='sddm'
-	  ;;
-	*)
-	  echo -n "No Display Manager installed"
-	esac
 #Begin chroot installation
-
-cp chroot.sh /mnt/chroot.sh
-#rm /mnt/etc/locale.gen
-#cp src/locale.gen /mnt/etc/locale.gen
-#echo "Please execute the second file with"
-#echo "chmod +x chroot.sh"
-#echo "./chroot.sh"
 arch-chroot /mnt << EOF
 	chmod +x $installDE
 	./$installDE
