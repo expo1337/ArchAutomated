@@ -67,7 +67,7 @@ Fully automated command line script to install and configute arch linux as fast 
 # TODO List
 
 - [x]Add an user + Visudo edit
-- []Install yay package manager
+- [x]Install yay package manager
 - [x]Nvidia proprietary drivers
 - [x]Add new desktop environments
 
