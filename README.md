@@ -15,7 +15,7 @@
 	•
 	<a href="#Features">Features</a>
 	•
-	<a href="#Desktop Environments and Display Managers">
+	<a href="#Choices">
 	•
 	<a href="#TODO List"></a>
 	•
