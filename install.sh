@@ -10,8 +10,9 @@ echo "Welcome to the Arch automated installer!"
 echo "----------------------------------------"
 sleep 3
 clear
-echo "Select a drive to install on: "
+echo "Input the name of the drive to install on: "
 lsblk
+echo "-------------------------------------------"
 read driveName
 clear
 echo "Please enter a hostname for the computer: "
@@ -225,6 +226,11 @@ arch-chroot /mnt << EOF
 	clear
 	neofetch
 EOF
+if [ "$hostname" == "nyarch" ]; then
+	mkdir /mnt/home/$username/.wallpapers
+	cp desktopInstall/wallpaper.png /mnt/home/$username/.wallpapers/wallpaper.png
+fi
+
 umount -a
 reboot
 # current variables ===== rootPass driveName efiSize swapSize rootSize size hostname displayMan desktopEnv efi swap root
