@@ -74,4 +74,4 @@ Fully automated command line script to install and configute arch linux as fast 
 # Memes
 
 - Using this script revokes your right to say "I use arch btw".
-- Setting the hostname to "nyarch" provides you with a custom wallpaper.
+- Setting the hostname to "nyarch" provides you with a custom wallpaper that can be found in "~/.wallpapers".
