@@ -229,8 +229,20 @@ arch-chroot /mnt << EOF
 	chmod +x nvidia.sh
 	./nvidia.sh
 	clear
-	echo "Installation finished"
-	echo "Root user only, create a new user after rebooting for normal usage!"
 	neofetch
 EOF
+echo "Installation finished"
+echo "Rebooting in 5 seconds"
+sleep(1)
+echo "5"
+sleep(1)
+echo "4"
+sleep(1)
+echo "3"
+sleep(1)
+echo "2"
+sleep(1)
+echo "1, Bravo 6, going dark"
+umount -a
+reboot
 # current variables ===== rootPass driveName efiSize swapSize rootSize size hostname displayMan desktopEnv efi swap root
