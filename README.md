@@ -15,9 +15,9 @@
 	•
 	<a href="#Features">Features</a>
 	•
-	<a href="#Desktop Environments and Display Managers">Desktop Environments and Display Managers</a>
+	<a href="#GUI">Desktop Environments and Display Managers</a>
 	•
-	<a href="#To be added">To be added</a>
+	<a href="#Todo">To be added</a>
 	•
 	<a href="#Memes">Memes</a>
 </p>
@@ -46,7 +46,7 @@ Fully automated command line script to install and configute arch linux as fast 
 - automatically installing a desktop environment and a display manager
 - decision between proprietary/open source drivers for nvidia gpu's
 
-# Desktop Environments and Display Managers
+# GUI
 **Environments available**
 
 - Gnome
@@ -64,7 +64,7 @@ Fully automated command line script to install and configute arch linux as fast 
 - LightDM
 - SDDM 
 
-# To be done
+# Todo
 
 - [x]Add an user + Visudo edit
 - [x]Install yay package manager
