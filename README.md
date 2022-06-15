@@ -15,9 +15,9 @@
 	•
 	<a href="#Features">Features</a>
 	•
-	<a href="#Choices">
+	<a href="#Desktop Environments and Display Managers">Desktop Environments and Display Managers</a>
 	•
-	<a href="#TODO List"></a>
+	<a href="#To be added"></a>
 	•
 	<a href="#Memes"></a>
 </p>
@@ -64,7 +64,7 @@ Fully automated command line script to install and configute arch linux as fast 
 - LightDM
 - SDDM 
 
-# TODO List
+# To be done
 
 - [x]Add an user + Visudo edit
 - [x]Install yay package manager
