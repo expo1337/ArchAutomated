@@ -14,6 +14,12 @@
 	<a href="#Installation">Installation</a>
 	•
 	<a href="#Features">Features</a>
+	•
+	<a href="#Desktop Environments and Display Managers">
+	•
+	<a href="#TODO List"></a>
+	•
+	<a href="#Memes"></a>
 </p>
 
 # Overview
@@ -58,3 +64,14 @@ Fully automated command line script to install and configute arch linux as fast 
 - LightDM
 - SDDM 
 
+# TODO List
+
+- [x]Add an user + Visudo edit
+- []Install yay package manager
+- [x]Nvidia proprietary drivers
+- [x]Add new desktop environments
+
+# Memes
+
+- Using this script revokes your right to say "I use arch btw".
+- Setting the hostname to "nyarch" provides you with a custom wallpaper.

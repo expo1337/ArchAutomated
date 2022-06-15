@@ -146,6 +146,21 @@ case $desktopEnv in
 	cp desktopInstall/budgie.sh /mnt
     #pacstrap /mnt xorg budgie-desktop
     ;;
+  6)
+    echo -n "i3-wm"
+	installDE="i3wm.sh"
+	cp desktopInstall/i3wm.sh /mnt
+	;;
+  7)
+    echo -n "i3-gaps"
+	installDE="i3gaps.sh"
+	cp desktopInstall/i3gaps.sh /mnt
+	;;
+  8)
+    echo -n "Cinnamon"
+	installDE="cinnamon.sh"
+	cp desktopInstall/cinnamon.sh /mnt
+	;;
   *)
     echo -n "No DE installed"
     ;;
@@ -166,7 +181,6 @@ case $displayMan in
 	  echo -n "SDDM"
 	  pacstrap /mnt sddm
 	  ;;
-	
 	*)
 	  echo -n "No Display Manager installed"
 esac

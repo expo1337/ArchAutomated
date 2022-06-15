@@ -1,0 +1,1 @@
+pacman -S cinnamon nemo-fileroller ttf-dejavu gnome-terminal --noconfirm
