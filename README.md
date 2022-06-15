@@ -66,12 +66,12 @@ Fully automated command line script to install and configute arch linux as fast 
 
 # Todo
 
-- [x]Add an user + Visudo edit
-- [x]Install yay package manager
-- [x]Nvidia proprietary drivers
-- [x]Add new desktop environments
+- [x] Add an user + Visudo edit
+- [x] Install yay package manager
+- [x] Nvidia proprietary drivers
+- [x] Add new desktop environments
 
 # Memes
 
 - Using this script revokes your right to say "I use arch btw".
-- Setting the hostname to "nyarch" provides you with a custom wallpaper.
+- Setting the hostname to "nyarch" provides you with a custom wallpaper that can be found in "~/.wallpapers".
