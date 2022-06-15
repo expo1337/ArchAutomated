@@ -17,9 +17,9 @@
 	•
 	<a href="#Desktop Environments and Display Managers">Desktop Environments and Display Managers</a>
 	•
-	<a href="#To be added"></a>
+	<a href="#To be added">To be added</a>
 	•
-	<a href="#Memes"></a>
+	<a href="#Memes">Memes</a>
 </p>
 
 # Overview
