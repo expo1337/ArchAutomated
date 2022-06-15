@@ -43,6 +43,9 @@ echo "2) KDE Plasma"
 echo "3) Xfce4"
 echo "4) Cutefish"
 echo "5) Budgie"
+echo "6) I3-wm"
+echo "7) I3-gaps"
+echo "8) Cinnamon"
 echo "0) No environment (CLI ONLY!)"
 read desktopEnv
 clear
@@ -228,7 +231,7 @@ arch-chroot /mnt << EOF
 	echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 	locale-gen
 	hwclock --systohc
-	useradd -G wheel -s /bin/bash $username
+	useradd -m -G wheel -s /bin/bash $username
 	sh -c 'echo $username:'$password' | chpasswd'
 	echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
 	systemctl enable NetworkManager
@@ -246,18 +249,6 @@ arch-chroot /mnt << EOF
 	clear
 	neofetch
 EOF
-echo "Installation finished"
-echo "Rebooting in 5 seconds"
-sleep(1)
-echo "5"
-sleep(1)
-echo "4"
-sleep(1)
-echo "3"
-sleep(1)
-echo "2"
-sleep(1)
-echo "1, Bravo 6, going dark"
 umount -a
 reboot
 # current variables ===== rootPass driveName efiSize swapSize rootSize size hostname displayMan desktopEnv efi swap root
