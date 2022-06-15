@@ -48,7 +48,12 @@ read desktopEnv
 clear
 echo "Use proprietary drivers? (NVIDIA ONLY) y/n"
 read drivers
-
+clear
+echo "Please enter an username for the new user: "
+read username
+clear
+echo "Please enter a password for the new user: "
+read password
 ls /sys/firmware/efi/efivars || { echo "You are not installing on EFI compatible hardware!" ; exit 1; }
 clear
 echo "Installing on EFI compatible hardware"
@@ -209,6 +214,9 @@ arch-chroot /mnt << EOF
 	echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 	locale-gen
 	hwclock --systohc
+	useradd -G wheel -s /bin/bash $username
+	sh -c 'echo $username:'$password' | chpasswd'
+	echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
 	systemctl enable NetworkManager
 	systemctl enable $dpMan
 	grub-install /dev/$driveName
