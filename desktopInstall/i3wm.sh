@@ -1,1 +1,1 @@
-pacman -S xorg confuse libev startup-notification xcb-util-cursor xcb-util-xrm yaji i3-wm i3blocks i3lock i3status dmenu nitrogen firefox kitty --noconfirm
+pacman -S xorg i3-wm i3lock i3status i3blocks dmenu kitty firefox --noconfirm
