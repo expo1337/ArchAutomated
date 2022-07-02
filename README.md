@@ -29,8 +29,8 @@ Fully automated command line script to install and configute arch linux as fast 
 # Installation
 
 1) Boot into Arch ISO installer
-2) Update your repos using "pacman -Sy"
-3) Download git using "pacman -S git"
+2) Sync repos using "pacman -Sy"
+3) Install git using "pacman -S git"
 4) Clone my repo using "git clone https://github.com/exp0420/ArchAutomated.git"
 5) Navigate into the folder using "cd ArchAutomated"
 6) Make the script executable using "chmod +x install.sh"
